@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Чистка и обслуживание ПК — kirpc</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #121212;
+      --color-surface: #1E1E1E;
+      --color-border: #333333;
+      --color-text: #E0E0E0;
+      --color-text-secondary: #A0A0A0;
+      --color-heading: #FFFFFF;
+      --color-accent: #F5B700;
+      --color-accent-hover: #FFD23D;
+      --color-footer-bg: #0A0A0A;
+      --color-footer-text: #888888;
+      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    .header {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--color-border);
+      background-color: var(--color-bg);
+    }
+    .header__inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--color-heading);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+    }
+    .logo__accent { color: var(--color-accent); }
+    .nav__list {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav__link {
+      color: var(--color-text-secondary);
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav__link:hover { color: var(--color-accent); }
+    .nav__link--active { color: var(--color-accent); }
+
+    /* Hero */
+    .hero {
+      padding: 80px 0 40px;
+      text-align: center;
+    }
+    .hero__title {
+      font-size: 2.8rem;
+      color: var(--color-heading);
+      margin-bottom: 16px;
+    }
+    .hero__title span { color: var(--color-accent); }
+    .hero__subtitle {
+      color: var(--color-text-secondary);
+      font-size: 1.1rem;
+      max-width: 650px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Section */
+    .section {
+      padding: 40px 0 80px;
+    }
+    .section__title {
+      text-align: center;
+      font-size: 2rem;
+      color: var(--color-heading);
+      margin-bottom: 16px;
+    }
+    .section__subtitle {
+      text-align: center;
+      color: var(--color-text-secondary);
+      margin-bottom: 48px;
+      font-size: 0.95rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Price Table */
+    .price-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 60px;
+    }
+    .price-table thead th {
+      text-align: left;
+      padding: 16px 20px;
+      color: var(--color-accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.85rem;
+      border-bottom: 2px solid var(--color-accent);
+    }
+    .price-table tbody td {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--color-border);
+      color: var(--color-text);
+      font-size: 0.95rem;
+      vertical-align: top;
+    }
+    .price-table tbody tr:hover td {
+      background-color: var(--color-surface);
+    }
+    .price-table .price {
+      text-align: right;
+      font-weight: 600;
+      color: var(--color-accent);
+      white-space: nowrap;
+    }
+    .price-table .note {
+      color: var(--color-text-secondary);
+      font-size: 0.85rem;
+    }
+
+    /* Cards */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+    .info-card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      padding: 32px 28px;
+      transition: border-color 0.25s;
+    }
+    .info-card:hover {
+      border-color: var(--color-accent);
+    }
+    .info-card__icon {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+    }
+    .info-card h3 {
+      color: var(--color-heading);
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+    }
+    .info-card p {
+      color: var(--color-text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* Steps */
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      max-width: 700px;
+      margin: 0 auto 60px;
+    }
+    .steps li {
+      counter-increment: step;
+      padding: 20px 20px 20px 72px;
+      position: relative;
+      border-left: 2px solid var(--color-border);
+      margin-left: 20px;
+      color: var(--color-text);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: -22px;
+      top: 16px;
+      width: 40px;
+      height: 40px;
+      background-color: var(--color-accent);
+      color: #121212;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .steps li strong {
+      color: var(--color-heading);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* FAQ */
+    .faq {
+      margin-bottom: 60px;
+    }
+    .faq__item {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin-bottom: 12px;
+    }
+    .faq__item h4 {
+      color: var(--color-heading);
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+    .faq__item p {
+      color: var(--color-text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* CTA */
+    .cta {
+      text-align: center;
+      padding: 40px 0;
+    }
+    .cta__text {
+      color: var(--color-text-secondary);
+      margin-bottom: 24px;
+      font-size: 1.05rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 16px 40px;
+      background-color: var(--color-accent);
+      color: #121212;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.2s;
+    }
+    .btn:hover { background-color: var(--color-accent-hover); }
+    .btn--ghost {
+      background-color: transparent;
+      border: 2px solid var(--color-accent);
+      color: var(--color-accent);
+      margin-left: 16px;
+    }
+    .btn--ghost:hover {
+      background-color: var(--color-accent);
+      color: #121212;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: var(--color-footer-bg);
+      border-top: 2px solid var(--color-accent);
+      padding: 40px 20px 20px;
+      margin-top: 40px;
+    }
+    .footer__inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer__column h4 {
+      color: #FFFFFF;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .footer__column a {
+      display: block;
+      color: #B0B0B0;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
+    .footer__column a:hover { color: var(--color-accent); }
+    .footer__column address {
+      font-style: normal;
+      color: var(--color-footer-text);
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+    .footer__bottom {
+      border-top: 1px solid #222222;
+      margin-top: 40px;
+      padding-top: 24px;
+      text-align: center;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .copyright { color: #555555; font-size: 0.85rem; }
+
+    @media (max-width: 768px) {
+      .hero__title { font-size: 2rem; }
+      .header__inner { flex-direction: column; gap: 16px; }
+      .nav__list { gap: 16px; flex-wrap: wrap; justify-content: center; }
+      .price-table thead th,
+      .price-table tbody td { padding: 12px 10px; font-size: 0.85rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .btn--ghost { margin-left: 0; margin-top: 12px; }
+      .footer__inner { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo">kir<span class="logo__accent">pc</span></a>
+      <nav class="nav">
+        <ul class="nav__list">
+          <li class="nav__item"><a href="index.html#services" class="nav__link">сервис</a></li>
+          <li class="nav__item"><a href="repair.html" class="nav__link">ремонт</a></li>
+          <li class="nav__item"><a href="cleaning.html" class="nav__link nav__link--active">чистка</a></li>
+          <li class="nav__item"><a href="configurator.html" class="nav__link">конфигуратор</a></li>
+          <li class="nav__item"><a href="ready-pc.html" class="nav__link">готовые пк</a></li>
+          <li class="nav__item"><a href="#contact" class="nav__link">контакты</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero__title">Чистка и <span>обслуживание</span></h1>
+      <p class="hero__subtitle">
+        Пыль — главный враг вашего ПК. Мы разбираем, чистим и обслуживаем системы любого уровня сложности.
+      </p>
+    </div>
+  </section>
+
+  <!-- Почему это важно -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section__title">Зачем чистить ПК?</h2>
+      <p class="section__subtitle">Регулярное обслуживание продлевает жизнь компонентам и сохраняет производительность</p>
+
+      <div class="cards-grid">
+        <div class="info-card">
+          <div class="info-card__icon">🌡️</div>
+          <h3>Снижение температур</h3>
+          <p>Забитая пылью система охлаждения поднимает температуру процессора и видеокарты на 15–25°C. После чистки — минус 10–20°C.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-card__icon">🔇</div>
+          <h3>Тихая работа</h3>
+          <p>Забитые вертушки крутятся быстрее, создавая лишний шум. После обслуживания ПК работает ощутимо тише.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-card__icon">⚡</div>
+          <h3>Стабильная производительность</h3>
+          <p>Перегрев вызывает троттлинг — процессор сбрасывает частоты. Чистый ПК держит стабильный FPS в играх и рендере.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-card__icon">⏳</div>
+          <h3>Продление срока службы</h3>
+          <p>Высокие температуры ускоряют деградацию чипов. Регулярная замена термопасты — профилактика отмирания железа.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-card__icon">🛡️</div>
+          <h3>Защита от короткого замыкания</h3>
+          <p>Пыль проводит ток. В запущенных случаях она может замкнуть контакты на плате и убить компонент.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-card__icon">👀</div>
+          <h3>Эстетика</h3>
+          <p>Пыльный корпус с грязными вентиляторами выглядит удручающе. Чистый ПК радует глаз, особенно со стеклянной боковиной.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Цены -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section__title">Стоимость услуг</h2>
+      <p class="section__subtitle">Цены зависят от сложности и уровня загрязнения</p>
+
+      <table class="price-table">
+        <thead>
+          <tr>
+            <th>Услуга</th>
+            <th>Что входит</th>
+            <th>Цена</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Базовая чистка</td>
+            <td class="note">Продувка корпуса, чистка фильтров и вентиляторов без разборки</td>
+            <td class="price">800 ₽</td>
+          </tr>
+          <tr>
+            <td>Полная чистка (стандарт)</td>
+            <td class="note">Разборка ПК, чистка всех компонентов, замена термопасты на процессоре</td>
+            <td class="price">1 500 ₽</td>
+          </tr>
+          <tr>
+            <td>Полная чистка (премиум)</td>
+            <td class="note">Разборка, чистка плат в УЗ-ванне, замена термопасты CPU + GPU, термопрокладок, кабель-менеджмент</td>
+            <td class="price">3 000 ₽</td>
+          </tr>
+          <tr>
+            <td>Замена термопасты (CPU)</td>
+            <td class="note">Снятие старой пасты, нанесение Arctic MX-4 / MX-6 / Thermal Grizzly</td>
+            <td class="price">600 ₽</td>
+          </tr>
+          <tr>
+            <td>Замена термопасты (GPU)</td>
+            <td class="note">Разборка видеокарты, чистка радиатора, замена пасты и термопрокладок</td>
+            <td class="price">1 500 ₽</td>
+          </tr>
+          <tr>
+            <td>Чистка видеокарты отдельно</td>
+            <td class="note">Разборка, продувка радиатора, замена термопасты</td>
+            <td class="price">1 200 ₽</td>
+          </tr>
+          <tr>
+            <td>Замена термопрокладок</td>
+            <td class="note">Подбор толщины, нарезка и установка (цена зависит от количества)</td>
+            <td class="price">от 500 ₽</td>
+          </tr>
+          <tr>
+            <td>Чистка СЖО / кастомного охлаждения</td>
+            <td class="note">Слив, промывка, заправка новой жидкостью, тест на герметичность</td>
+            <td class="price">от 2 500 ₽</td>
+          </tr>
+          <tr>
+            <td>Обслуживание ноутбука</td>
+            <td class="note">Разборка, чистка системы охлаждения, замена термопасты CPU + GPU</td>
+            <td class="price">2 000 ₽</td>
+          </tr>
+          <tr>
+            <td>Установка дополнительных вентиляторов</td>
+            <td class="note">Монтаж, подключение, настройка кривой оборотов в BIOS</td>
+            <td class="price">500 ₽</td>
+          </tr>
+          <tr>
+            <td>Кабель-менеджмент</td>
+            <td class="note">Переукладка всех проводов, стяжки, гребёнки, эстетика</td>
+            <td class="price">от 1 000 ₽</td>
+          </tr>
+          <tr>
+            <td>Обслуживание клавиатуры / мыши</td>
+            <td class="note">Разборка, чистка от грязи и крошек, дезинфекция</td>
+            <td class="price">500 ₽</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Как проходит чистка -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section__title">Как мы работаем</h2>
+      <p class="section__subtitle">Процесс полной чистки занимает от 40 минут до 2 часов</p>
+
+      <ol class="steps">
+        <li>
+          <strong>Первичный осмотр</strong>
+          Проверяем температуры до чистки, смотрим уровень загрязнения через стекло / решётки.
+        </li>
+        <li>
+          <strong>Диагностика</strong>
+          Прогоняем стресс-тесты, фиксируем температуры и шум — чтобы сравнить «до и после».
+        </li>
+        <li>
+          <strong>Разборка</strong>
+          Аккуратно извлекаем видеокарту, кулер, вентиляторы. Обесточиваем плату.
+        </li>
+        <li>
+          <strong>Чистка</strong>
+          Продуваем радиаторы сжатым воздухом, чистим фильтры и вентиляторы. При премиум-обслуживании — УЗ-ванна для платы.
+        </li>
+        <li>
+          <strong>Замена термоинтерфейсов</strong>
+          Снимаем старую пасту с CPU и GPU (если требуется), наносим свежую. Меняем термопрокладки.
+        </li>
+        <li>
+          <strong>Сборка и тест</strong>
+          Собираем всё обратно, запускаем стресс-тесты. Сравниваем температуры — обычно минус 10–20°C.
+        </li>
+        <li>
+          <strong>Финал</strong>
+          Отдаём ПК с результатами тестов и рекомендациями по следующему обслуживанию.
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section__title">Частые вопросы</h2>
+      <p class="section__subtitle">Отвечаем на то, о чём спрашивают чаще всего</p>
+
+      <div class="faq">
+        <div class="faq__item">
+          <h4>Как часто нужно чистить ПК?</h4>
+          <p>Оптимально — раз в 6–12 месяцев. Если в доме есть животные или компьютер стоит на полу — раз в 4–6 месяцев. Игровые ПК с мощным железом желательно обслуживать каждые полгода.</p>
+        </div>
+        <div class="faq__item">
+          <h4>Можно почистить ПК самостоятельно?</h4>
+          <p>Можно. Но без опыта легко повредить контакты статикой, сорвать резьбу на креплениях кулера или неправильно нанести термопасту. Мы делаем это каждый день и даём гарантию на работу.</p>
+        </div>
+        <div class="faq__item">
+          <h4>Что за термопасту вы используете?</h4>
+          <p>Arctic MX-4, MX-6 или Thermal Grizzly Kryonaut — по выбору клиента. Разница в цене небольшая, все варианты отличные.</p>
+        </div>
+        <div class="faq__item">
+          <h4>Сколько времени занимает чистка?</h4>
+          <p>Базовая продувка — 20–30 минут. Полная разборка с заменой пасты — от 1 часа. Премиум с УЗ-ванной и видеокартой — до 2,5 часов.</p>
+        </div>
+        <div class="faq__item">
+          <h4>Даёте ли гарантию на работу?</h4>
+          <p>Да, 30 дней на выполненные работы. Если после чистки что-то пошло не так — исправляем бесплатно.</p>
+        </div>
+        <div class="faq__item">
+          <h4>Нужно ли оставлять ПК у вас?</h4>
+          <p>Базовую чистку делаем при вас. Полную — можно оставить на 2–4 часа или приехать к назначенному времени. Работаем быстро.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container">
+      <p class="cta__text">Ваш ПК заслуживает свежего воздуха и холодных температур.</p>
+      <a href="#" class="btn">Записаться на чистку</a>
+      <a href="repair.html" class="btn btn--ghost">Нужен ремонт?</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="contact">
+    <div class="footer__inner">
+      <div class="footer__column">
+        <h4>Услуги</h4>
+        <a href="repair.html">Ремонт</a>
+        <a href="cleaning.html">Чистка / замена термоинтерфейса</a>
+        <a href="configurator.html">Конфигуратор ПК</a>
+        <a href="ready-pc.html">Готовые ПК</a>
+      </div>
+      <div class="footer__column">
+        <h4>Контакты</h4>
+        <address>
+          ул. Техническая, д. 15<br>
+          +7 (999) 123-45-67<br>
+          каждый день: 10:00 – 20:00
+        </address>
+      </div>
+      <div class="footer__column">
+        <h4>Соцсети</h4>
+        <a href="#">Telegram</a>
+        <a href="#">YouTube</a>
+        <a href="#">Discord</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p class="copyright">&copy; kirpc</p>
+    </div>
+  </footer>
+
+</body>
+</html>
