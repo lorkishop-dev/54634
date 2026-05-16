@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Конфигуратор ПК — kirpc</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #121212;
+      --color-surface: #1E1E1E;
+      --color-border: #333333;
+      --color-text: #E0E0E0;
+      --color-text-secondary: #A0A0A0;
+      --color-heading: #FFFFFF;
+      --color-accent: #F5B700;
+      --color-accent-hover: #FFD23D;
+      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .back-link {
+      color: var(--color-text-secondary);
+      font-size: 0.9rem;
+      display: inline-block;
+      margin-bottom: 32px;
+    }
+    .back-link:hover { color: var(--color-accent); }
+
+    h1 {
+      color: var(--color-heading);
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+    h1 span { color: var(--color-accent); }
+
+    .subtitle {
+      color: var(--color-text-secondary);
+      margin-bottom: 36px;
+      font-size: 0.95rem;
+    }
+
+ 
+    .config-group {
+      margin-bottom: 24px;
+    }
+
+    .config-group label {
+      display: block;
+      color: var(--color-heading);
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .config-group select {
+      width: 100%;
+      padding: 14px 16px;
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      color: var(--color-text);
+      font-size: 1rem;
+      font-family: var(--font-main);
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23F5B700' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+    }
+
+    .config-group select:focus {
+      outline: none;
+      border-color: var(--color-accent);
+    }
+
+    /* Итого */
+    .total {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-accent);
+      border-radius: 8px;
+      padding: 28px;
+      margin-top: 36px;
+      text-align: center;
+    }
+
+    .total__label {
+      color: var(--color-text-secondary);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .total__price {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--color-accent);
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 16px 40px;
+      background-color: var(--color-accent);
+      color: #121212;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      text-decoration: none;
+    }
+    .btn:hover { background-color: var(--color-accent-hover); }
+
+    @media (max-width: 500px) {
+      h1 { font-size: 1.6rem; }
+      .total__price { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-link">&larr; Назад на главную</a>
+
+    <h1>Конфигуратор <span>ПК</span></h1>
+    <p class="subtitle">Выбери комплектующие — сумма обновляется автоматически</p>
+
+    <!-- CPU -->
+    <div class="config-group">
+      <label>Процессор</label>
+      <select id="cpu" onchange="calculateTotal()">
+        <option value="0">— Выберите —</option>
+        <option value="8500">Intel Core i3-12100F — 8 500 ₽</option>
+        <option value="9500">Intel Core i3-13100F — 9 500 ₽</option>
+        <option value="10500">Intel Core i3-14100F — 10 500 ₽</option>
+        <option value="12000">Intel Core i5-12400F — 12 000 ₽</option>
+        <option value="14000">Intel Core i5-12400 — 14 000 ₽</option>
+        <option value="14500">Intel Core i5-13400F — 14 500 ₽</option>
+        <option value="16000">Intel Core i5-13400 — 16 000 ₽</option>
+        <option value="16500">Intel Core i5-14400F — 16 500 ₽</option>
+        <option value="18000">Intel Core i5-14400 — 18 000 ₽</option>
+        <option value="18500">Intel Core i5-12600KF — 18 500 ₽</option>
+        <option value="20500">Intel Core i5-13600KF — 20 500 ₽</option>
+        <option value="22000">Intel Core i5-14600KF — 22 000 ₽</option>
+        <option value="23000">Intel Core i7-12700F — 23 000 ₽</option>
+        <option value="25000">Intel Core i7-12700K — 25 000 ₽</option>
+        <option value="27000">Intel Core i7-13700F — 27 000 ₽</option>
+        <option value="30000">Intel Core i7-13700K — 30 000 ₽</option>
+        <option value="29000">Intel Core i7-14700F — 29 000 ₽</option>
+        <option value="33000">Intel Core i7-14700K — 33 000 ₽</option>
+        <option value="38000">Intel Core i9-12900K — 38 000 ₽</option>
+        <option value="48000">Intel Core i9-13900K — 48 000 ₽</option>
+        <option value="55000">Intel Core i9-14900K — 55 000 ₽</option>       
+<option value="5500">AMD Ryzen 3 4100 — 5 500 ₽</option>
+<option value="7000">AMD Ryzen 3 4300G — 7 000 ₽</option>
+<option value="7500">AMD Ryzen 3 5300G — 7 500 ₽</option>
+<option value="12000">AMD Ryzen 3 8300G — 12 000 ₽</option>
+<option value="8000">AMD Ryzen 5 5500 — 8 000 ₽</option>
+<option value="9500">AMD Ryzen 5 5600 — 9 500 ₽</option>
+<option value="11000">AMD Ryzen 5 5600X — 11 000 ₽</option>
+<option value="13500">AMD Ryzen 5 7500F — 13 500 ₽</option>
+<option value="15500">AMD Ryzen 5 7600 — 15 500 ₽</option>
+<option value="17500">AMD Ryzen 5 7600X — 17 500 ₽</option>
+<option value="19500">AMD Ryzen 5 9600X — 19 500 ₽</option>
+<option value="16000">AMD Ryzen 7 5700X — 16 000 ₽</option>
+<option value="20000">AMD Ryzen 7 5700X3D — 20 000 ₽</option>
+<option value="18500">AMD Ryzen 7 5800X — 18 500 ₽</option>
+<option value="22000">AMD Ryzen 7 7700 — 22 000 ₽</option>
+<option value="25000">AMD Ryzen 7 7700X — 25 000 ₽</option>
+<option value="34000">AMD Ryzen 7 7800X3D — 34 000 ₽</option>
+<option value="31000">AMD Ryzen 7 9700X — 31 000 ₽</option>
+<option value="47000">AMD Ryzen 7 9800X3D — 47 000 ₽</option>
+<option value="27000">AMD Ryzen 9 5900X — 27 000 ₽</option>
+<option value="35000">AMD Ryzen 9 5950X — 35 000 ₽</option>
+<option value="41000">AMD Ryzen 9 7900X — 41 000 ₽</option>
+<option value="53000">AMD Ryzen 9 7950X — 53 000 ₽</option>
+<option value="60000">AMD Ryzen 9 7950X3D — 60 000 ₽</option>
+<option value="56000">AMD Ryzen 9 9900X — 56 000 ₽</option>
+<option value="66000">AMD Ryzen 9 9950X — 66 000 ₽</option>
+      </select>
+    </div>
+
+    <!-- GPU -->
+    <div class="config-group">
+      <label>Видеокарта</label>
+      <select id="gpu" onchange="calculateTotal()">
+        <option value="0">— Выберите —</option>
+        <option value="0">— Выберите видеокарту NVIDIA —</option>
+<option value="28000">NVIDIA RTX 4060 — 28 000 ₽</option>
+<option value="42000">NVIDIA RTX 4060 Ti 8GB — 42 000 ₽</option>
+<option value="50000">NVIDIA RTX 4060 Ti 16GB — 50 000 ₽</option>
+<option value="58000">NVIDIA RTX 4070 — 58 000 ₽</option>
+<option value="68000">NVIDIA RTX 4070 Super — 68 000 ₽</option>
+<option value="75000">NVIDIA RTX 4070 Ti Super — 75 000 ₽</option>
+<option value="100000">NVIDIA RTX 4080 Super — 100 000 ₽</option>
+<option value="160000">NVIDIA RTX 4090 — 160 000 ₽</option>
+<option value="120000">NVIDIA RTX 5080 — 120 000 ₽</option>
+<option value="200000">NVIDIA RTX 5090 — 200 000 ₽</option>
+<option value="0">— Выберите видеокарту AMD —</option>
+<option value="20000">AMD RX 7600 — 20 000 ₽</option>
+<option value="26000">AMD RX 7600 XT — 26 000 ₽</option>
+<option value="31000">AMD RX 7700 XT — 31 000 ₽</option>
+<option value="48000">AMD RX 7800 XT — 48 000 ₽</option>
+<option value="62000">AMD RX 7900 GRE — 62 000 ₽</option>
+<option value="72000">AMD RX 7900 XT — 72 000 ₽</option>
+<option value="90000">AMD RX 7900 XTX — 90 000 ₽</option>
+<option value="0">— Выберите видеокарту NVIDIA RTX 5000 —</option>
+<option value="120000">NVIDIA GeForce RTX 5090 32GB — 120 000 ₽</option>
+<option value="85000">NVIDIA GeForce RTX 5080 16GB — 85 000 ₽</option>
+<option value="65000">NVIDIA GeForce RTX 5070 Ti 16GB — 65 000 ₽</option>
+<option value="48000">NVIDIA GeForce RTX 5070 12GB — 48 000 ₽</option>
+<option value="35000">NVIDIA GeForce RTX 5060 Ti 16GB — 35 000 ₽</option>
+<option value="28000">NVIDIA GeForce RTX 5060 8GB — 28 000 ₽</option>
+<option value="20000">NVIDIA GeForce RTX 5050 8GB — 20 000 ₽</option>
+<option value="0">— Выберите видеокарту NVIDIA —</option>
+<optgroup label="RTX 5000 (Blackwell)">
+    <option value="120000">NVIDIA GeForce RTX 5090 32GB — 120 000 ₽</option>
+    <option value="85000">NVIDIA GeForce RTX 5080 16GB — 85 000 ₽</option>
+    <option value="65000">NVIDIA GeForce RTX 5070 Ti 16GB — 65 000 ₽</option>
+    <option value="48000">NVIDIA GeForce RTX 5070 12GB — 48 000 ₽</option>
+    <option value="35000">NVIDIA GeForce RTX 5060 Ti 16GB — 35 000 ₽</option>
+    <option value="28000">NVIDIA GeForce RTX 5060 8GB — 28 000 ₽</option>
+    <option value="20000">NVIDIA GeForce RTX 5050 8GB — 20 000 ₽</option>
+</optgroup>
+<optgroup label="RTX 4000 (Ada Lovelace)">
+    <option value="160000">NVIDIA GeForce RTX 4090 24GB — 160 000 ₽</option>
+    <option value="100000">NVIDIA GeForce RTX 4080 Super 16GB — 100 000 ₽</option>
+    <option value="75000">NVIDIA GeForce RTX 4070 Ti Super 16GB — 75 000 ₽</option>
+    <option value="58000">NVIDIA GeForce RTX 4070 Super 12GB — 58 000 ₽</option>
+    <option value="42000">NVIDIA GeForce RTX 4060 Ti 8GB — 42 000 ₽</option>
+    <option value="28000">NVIDIA GeForce RTX 4060 8GB — 28 000 ₽</option>
+</optgroup>
+      </select>
+    </div>
+
+    <!-- Motherboard -->
+    <div class="config-group">
+      <label>Материнская плата</label>
+      <select id="motherboard" onchange="calculateTotal()">
+        <option value="0">— Выберите —</option>
+        <option value="8500">MSI B760M Gaming — 8 500 ₽</option>
+        <option value="12000">ASUS TUF Gaming B650-Plus — 12 000 ₽</option>
+        <option value="16500">Gigabyte Z790 Aorus Elite — 16 500 ₽</option>
+        <option value="0">— Выберите материнскую плату —</option>
+<option value="7500">MSI PRO B760M-P (LGA1700, DDR5) — 7 500 ₽</option>
+<option value="10500">ASUS TUF Gaming B760-Plus (LGA1700, DDR5) — 10 500 ₽</option>
+<option value="13500">MSI MAG Z790 Tomahawk (LGA1700, DDR5) — 13 500 ₽</option>
+<option value="17000">ASUS ROG Strix Z790-F (LGA1700, DDR5) — 17 000 ₽</option>
+<option value="9500">Gigabyte B650 Gaming X AX (AM5) — 9 500 ₽</option>
+<option value="13000">ASUS TUF Gaming B650-Plus (AM5) — 13 000 ₽</option>
+<option value="16000">MSI MAG X670E Tomahawk (AM5) — 16 000 ₽</option>
+<option value="22000">ASUS ROG Strix X670E-F (AM5) — 22 000 ₽</option>
+      </select>
+    </div>
+
+    <!-- RAM -->
+    <div class="config-group">
+      <label>Оперативная память</label>
+      <select id="ram" onchange="calculateTotal()">
+        <option value="0">— Выберите —</option>
+        <option value="5500">16GB DDR5 (2x8) Kingston Fury — 5 500 ₽</option>
+        <option value="9500">32GB DDR5 (2x16) Corsair Vengeance — 9 500 ₽</option>
+        <option value="0">— Выберите оперативную память —</option>
+        <option value="4500">16GB DDR4 (2x8) Kingston Fury 3200MHz — 4 500 ₽</option>
+        <option value="6500">32GB DDR4 (2x16) Corsair Vengeance 3600MHz — 6 500 ₽</option>
+        <option value="5500">16GB DDR5 (2x8) Kingston Fury 5200MHz — 5 500 ₽</option>
+        <option value="7500">16GB DDR5 (2x8) G.Skill Ripjaws 6000MHz — 7 500 ₽</option>
+        <option value="9500">32GB DDR5 (2x16) Corsair Vengeance 5600MHz — 9 500 ₽</option>
+        <option value="12000">32GB DDR5 (2x16) G.Skill Trident Z5 6000MHz — 12 000 ₽</option>
+        <option value="18500">64GB DDR5 (2x32) Kingston Fury 6000MHz — 18 500 ₽</option>
+    </select>
+    </div>
+
+    <!-- Storage -->
+    <div class="config-group">
+      <label>Накопитель</label>
+      <select id="storage" onchange="calculateTotal()">
+        <option value="0">— Выберите —</option>
+        <option value="5500">SSD 1TB Samsung 980 — 5 500 ₽</option>
+        <option value="8500">SSD 2TB WD Black SN770 — 8 500 ₽</option><option value="0">— Выберите накопитель —</option>
+        <option value="4000">SSD 512GB Kingston NV2 M.2 — 4 000 ₽</option>
+        <option value="5500">SSD 1TB Kingston NV2 M.2 — 5 500 ₽</option>
+        <option value="6500">SSD 1TB Samsung 980 M.2 — 6 500 ₽</option>
+        <option value="8000">SSD 1TB Samsung 990 EVO M.2 — 8 000 ₽</option>
+        <option value="8500">SSD 2TB WD Black SN770 M.2 — 8 500 ₽</option>
+        <option value="11000">SSD 2TB Samsung 990 PRO M.2 — 11 000 ₽</option>
+        <option value="17000">SSD 4TB WD Black SN850X M.2 — 17 000 ₽</option>
+      </select>
+    </div>
+
+    <!-- PSU -->
+    <div class="config-group">
+      <label>Блок питания</label>
+      <select id="psu" onchange="calculateTotal()">
+        <option value="0">— Выберите —</option>
+        <option value="5500">DeepCool PF650 (650W) — 5 500 ₽</option>
+        <option value="7500">Corsair RM750e (750W) — 7 500 ₽</option>
+        <option value="10500">be quiet! Straight Power 12 (850W) — 10 500 ₽</option>
+        <option value="0">— Выберите блок питания —</option>
+        <option value="4500">DeepCool PF550 (550W) — 4 500 ₽</option>
+        <option value="5500">DeepCool PF650 (650W) — 5 500 ₽</option>
+        <option value="7000">Corsair RM750e (750W) — 7 000 ₽</option>
+        <option value="8500">be quiet! Pure Power 12 M (750W) — 8 500 ₽</option>
+        <option value="10000">Corsair RM850e (850W) — 10 000 ₽</option>
+        <option value="12000">be quiet! Straight Power 12 (1000W) — 12 000 ₽</option>
+        <option value="16000">Corsair RM1000x (1000W) — 16 000 ₽</option>
+        <option value="22000">be quiet! Dark Power 13 (1200W) — 22 000 ₽</option>
+        <option value="3200">DeepCool PF400 (400W, 80+) — 3 200 ₽</option>
+        <option value="3500">AeroCool VX Plus 500 (500W) — 3 500 ₽</option>
+        <option value="3800">be quiet! System Power 10 400W (80+ Bronze) — 3 800 ₽</option>
+        <option value="4000">DeepCool PF550 (550W, 80+) — 4 000 ₽</option>
+        <option value="4200">Corsair CV550 (550W, 80+ Bronze) — 4 200 ₽</option>
+        <option value="4500">Cooler Master MWE 500 (500W, 80+) — 4 500 ₽</option>
+        <option value="4800">be quiet! System Power 10 550W (80+ Bronze) — 4 800 ₽</option>
+        <option value="5000">Thermaltake Litepower 550W — 5 000 ₽</option>
+        <option value="5200">Gigabyte P550B (550W, 80+ Bronze) — 5 200 ₽</option>
+        <option value="5200">DeepCool PK600D (600W, 80+ Bronze) — 5 200 ₽</option>
+        <option value="5500">AeroCool KCAS 600W (80+ Bronze) — 5 500 ₽</option>
+        <option value="5700">DeepCool PF650 (650W, 80+) — 5 700 ₽</option>
+        <option value="6000">Corsair CX650 (650W, 80+ Bronze) — 6 000 ₽</option>
+        <option value="6200">Cooler Master MWE 600 (600W, 80+ White) — 6 200 ₽</option>
+        <option value="6500">Gigabyte P650B (650W, 80+ Bronze) — 6 500 ₽</option>
+        <option value="6800">Thermaltake Smart BM2 650W (80+ Bronze) — 6 800 ₽</option>
+        <option value="7000">Corsair RM650 (650W, 80+ Gold) — 7 000 ₽</option>
+        <option value="7200">MSI MAG A650BN (650W, 80+ Bronze) — 7 200 ₽</option>
+        <option value="7500">be quiet! Pure Power 11 650W (80+ Gold) — 7 500 ₽</option>
+        <option value="7800">Cooler Master V650 Gold V2 (650W, 80+ Gold) — 7 800 ₽</option>
+        <option value="8000">XPG Pylon 650W (80+ Bronze) — 8 000 ₽</option>
+        <option value="7000">DeepCool PK700D (700W, 80+ Bronze) — 7 000 ₽</option>
+        <option value="7500">Corsair CX750 (750W, 80+ Bronze) — 7 500 ₽</option>
+        <option value="7800">Cooler Master MWE 750 (750W, 80+ Bronze) — 7 800 ₽</option>
+        <option value="8000">Gigabyte P750GM (750W, 80+ Gold) — 8 000 ₽</option>
+        <option value="8200">Thermaltake Toughpower GF1 750W (80+ Gold) — 8 200 ₽</option>
+        <option value="8500">MSI MPG A750GF (750W, 80+ Gold) — 8 500 ₽</option>
+        <option value="8700">DeepCool DQ750-M-V2L (750W, 80+ Gold) — 8 700 ₽</option>
+        <option value="9000">Corsair RM750e (750W, 80+ Gold) — 9 000 ₽</option>
+        <option value="9300">XPG Core Reactor 750W (80+ Gold) — 9 300 ₽</option>
+        <option value="9500">be quiet! Pure Power 12 M 750W (80+ Gold) — 9 500 ₽</option>
+        <option value="10000">Cooler Master V750 Gold V2 (750W, 80+ Gold) — 10 000 ₽</option>
+        <option value="10500">ASUS TUF Gaming 750W (80+ Gold) — 10 500 ₽</option>
+        <option value="11000">Seasonic Focus GX 750 (750W, 80+ Gold) — 11 000 ₽</option>
+        <option value="11500">Corsair RM750x (750W, 80+ Gold) — 11 500 ₽</option>
+        <option value="12000">NZXT C750 (750W, 80+ Gold) — 12 000 ₽</option>
+        <option value="8500">DeepCool PQ850M (850W, 80+ Gold) — 8 500 ₽</option>
+        <option value="9000">Cooler Master MWE 850 (850W, 80+ Gold) — 9 000 ₽</option>
+        <option value="9500">Gigabyte UD850GM (850W, 80+ Gold) — 9 500 ₽</option>
+        <option value="10000">Thermaltake Toughpower GF3 850W (80+ Gold) — 10 000 ₽</option>
+        <option value="10500">Corsair RM850e (850W, 80+ Gold) — 10 500 ₽</option>
+        <option value="10800">MSI MPG A850G (850W, 80+ Gold) — 10 800 ₽</option>
+        <option value="11000">XPG Core Reactor 850W (80+ Gold) — 11 000 ₽</option>
+        <option value="11500">be quiet! Pure Power 12 M 850W (80+ Gold) — 11 500 ₽</option>
+        <option value="12000">Cooler Master V850 Gold V2 (850W, 80+ Gold) — 12 000 ₽</option>
+        <option value="12500">DeepCool PX850G (850W, 80+ Gold, ATX 3.0) — 12 500 ₽</option>
+        <option value="13000">ASUS TUF Gaming 850W (80+ Gold) — 13 000 ₽</option>
+        <option value="13500">Corsair RM850x (850W, 80+ Gold) — 13 500 ₽</option>
+        <option value="14000">Seasonic Focus GX 850 (850W, 80+ Gold) — 14 000 ₽</option>
+        <option value="14500">NZXT C850 (850W, 80+ Gold) — 14 500 ₽</option>
+        <option value="15500">Fractal Design Ion Gold 850W (80+ Gold) — 15 500 ₽</option>
+        <option value="16000">be quiet! Straight Power 12 850W (80+ Platinum) — 16 000 ₽</option>
+        <option value="17500">Lian Li SP850 (850W, SFX, 80+ Gold) — 17 500 ₽</option>
+        <option value="11000">DeepCool PQ1000M (1000W, 80+ Gold) — 11 000 ₽</option>
+  <option value="12000">Cooler Master MWE 1050 (1050W, 80+ Gold) — 12 000 ₽</option>
+  <option value="12500">Gigabyte UD1000GM (1000W, 80+ Gold) — 12 500 ₽</option>
+  <option value="13000">XPG Core Reactor 1000W (80+ Gold) — 13 000 ₽</option>
+  <option value="13500">Thermaltake Toughpower GF3 1000W (80+ Gold) — 13 500 ₽</option>
+  <option value="14000">MSI MPG A1000G (1000W, 80+ Gold) — 14 000 ₽</option>
+  <option value="14500">Corsair RM1000e (1000W, 80+ Gold) — 14 500 ₽</option>
+  <option value="15000">be quiet! Pure Power 12 M 1000W (80+ Gold) — 15 000 ₽</option>
+  <option value="15500">DeepCool PX1000G (1000W, 80+ Gold, ATX 3.0) — 15 500 ₽</option>
+  <option value="16000">Cooler Master V1000 Platinum (1000W, 80+ Platinum) — 16 000 ₽</option>
+  <option value="16500">ASUS TUF Gaming 1000W (80+ Gold) — 16 500 ₽</option>
+  <option value="17000">Corsair RM1000x (1000W, 80+ Gold) — 17 000 ₽</option>
+  <option value="18000">Seasonic Focus GX 1000 (1000W, 80+ Gold) — 18 000 ₽</option>
+  <option value="19000">NZXT C1000 (1000W, 80+ Gold) — 19 000 ₽</option>
+  <option value="19500">Fractal Design Ion Gold 1000W (80+ Gold) — 19 500 ₽</option>
+  <option value="21000">be quiet! Straight Power 12 1000W (80+ Platinum) — 21 000 ₽</option>
+  <option value="23000">Lian Li Edge 1000W (80+ Platinum, ATX 3.1) — 23 000 ₽</option>
+  <option value="25000">ASUS ROG Strix 1000W (80+ Gold) — 25 000 ₽</option>
+  <optgroup label="SFX (компактные)">
+    <option value="6500">Cooler Master V550 SFX (550W, 80+ Gold) — 6 500 ₽</option>
+    <option value="7500">Corsair SF600 (600W, 80+ Platinum) — 7 500 ₽</option>
+    <option value="8500">Cooler Master V650 SFX (650W, 80+ Gold) — 8 500 ₽</option>
+    <option value="9500">Thermaltake Toughpower SFX 650W (80+ Gold) — 9 500 ₽</option>
+    <option value="11000">Lian Li SP750 (750W, SFX, 80+ Gold) — 11 000 ₽</option>
+    <option value="12000">Corsair SF750 (750W, 80+ Platinum) — 12 000 ₽</option>
+    <option value="13500">Cooler Master V750 SFX (750W, 80+ Gold) — 13 500 ₽</option>
+    <option value="14500">Cooler Master V850 SFX (850W, 80+ Gold) — 14 500 ₽</option>
+    <option value="15000">Lian Li SP850 (850W, SFX, 80+ Gold) — 15 000 ₽</option>
+    <option value="17000">Corsair SF850 (850W, 80+ Platinum) — 17 000 ₽</option>
+    <option value="18500">Cooler Master V1100 SFX (1100W, 80+ Platinum) — 18 500 ₽</option>
+    <option value="20000">Corsair SF1000 (1000W, 80+ Platinum) — 20 000 ₽</option>
+  </optgroup>
+    </select>
+    </div>
+
+    <!-- Case -->
+    <div class="config-group">
+      <label>Корпус</label>
+      <select id="case" onchange="calculateTotal()">
+    
+        <option value="3000">DeepCool Matrexx 30 (M-ATX) — 3 000 ₽</option>
+        <option value="4200">DeepCool Matrexx 40 (ATX) — 4 200 ₽</option>
+        <option value="5500">Zalman S3 (ATX) — 5 500 ₽</option>
+        <option value="6500">NZXT H5 Flow (ATX) — 6 500 ₽</option>
+        <option value="8000">Corsair 4000D Airflow (ATX) — 8 000 ₽</option>
+        <option value="9500">Fractal Design North (ATX) — 9 500 ₽</option>
+        <option value="12000">Lian Li O11 Dynamic (ATX) — 12 000 ₽</option>
+        <option value="15000">NZXT H9 Flow (ATX) — 15 000 ₽</option>
+        <option value="4200">DeepCool Matrexx 40 — 4 200 ₽</option>
+        <option value="6500">NZXT H5 Flow — 6 500 ₽</option>
+        <option value="9500">Fractal Design North — 9 500 ₽</option>
+      </select>
+    </div>
+
+    <!-- Total -->
+    <div class="total">
+      <div class="total__label">Итоговая стоимость</div>
+      <div class="total__price" id="totalPrice">0 ₽</div>
+      <a href="#" class="btn" id="orderBtn">Заказать эту сборку</a>
+    </div>
+  </div>
+
+  <script>
+    function calculateTotal() {
+      const ids = ['cpu', 'gpu', 'motherboard', 'ram', 'storage', 'psu', 'case'];
+      let total = 0;
+      ids.forEach(id => {
+        total += parseInt(document.getElementById(id).value);
+      });
+      document.getElementById('totalPrice').textContent = total.toLocaleString('ru-RU') + ' ₽';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ремонт ПК — kirpc</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #121212;
+      --color-surface: #1E1E1E;
+      --color-border: #333333;
+      --color-text: #E0E0E0;
+      --color-text-secondary: #A0A0A0;
+      --color-heading: #FFFFFF;
+      --color-accent: #F5B700;
+      --color-accent-hover: #FFD23D;
+      --color-footer-bg: #0A0A0A;
+      --color-footer-text: #888888;
+      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    .header {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--color-border);
+      background-color: var(--color-bg);
+    }
+    .header__inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--color-heading);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+    }
+    .logo__accent { color: var(--color-accent); }
+    .nav__list {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav__link {
+      color: var(--color-text-secondary);
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav__link:hover { color: var(--color-accent); }
+
+    /* Hero */
+    .hero {
+      padding: 80px 0 60px;
+      text-align: center;
+    }
+    .hero__title {
+      font-size: 2.8rem;
+      color: var(--color-heading);
+      margin-bottom: 16px;
+    }
+    .hero__title span { color: var(--color-accent); }
+    .hero__subtitle {
+      color: var(--color-text-secondary);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Price list */
+    .pricelist {
+      padding: 40px 0 80px;
+    }
+    .pricelist__title {
+      text-align: center;
+      font-size: 2rem;
+      color: var(--color-heading);
+      margin-bottom: 48px;
+    }
+
+    .price-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .price-table th {
+      text-align: left;
+      padding: 16px 20px;
+      color: var(--color-accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.85rem;
+      border-bottom: 2px solid var(--color-accent);
+    }
+    .price-table td {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--color-border);
+      color: var(--color-text);
+      font-size: 0.95rem;
+    }
+    .price-table tr:hover td {
+      background-color: var(--color-surface);
+    }
+    .price-table .price {
+      text-align: right;
+      font-weight: 600;
+      color: var(--color-accent);
+      white-space: nowrap;
+    }
+    .price-table .note {
+      color: var(--color-text-secondary);
+      font-size: 0.85rem;
+    }
+
+    /* CTA */
+    .cta {
+      text-align: center;
+      padding: 40px 0 80px;
+    }
+    .cta__text {
+      color: var(--color-text-secondary);
+      margin-bottom: 24px;
+      font-size: 1.05rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 16px 40px;
+      background-color: var(--color-accent);
+      color: #121212;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.2s;
+    }
+    .btn:hover { background-color: var(--color-accent-hover); }
+    .btn--ghost {
+      background-color: transparent;
+      border: 2px solid var(--color-accent);
+      color: var(--color-accent);
+      margin-left: 16px;
+    }
+    .btn--ghost:hover {
+      background-color: var(--color-accent);
+      color: #121212;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: var(--color-footer-bg);
+      border-top: 2px solid var(--color-accent);
+      padding: 40px 20px 20px;
+    }
+    .footer__inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer__column h4 {
+      color: #FFFFFF;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .footer__column a {
+      display: block;
+      color: #B0B0B0;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
+    .footer__column a:hover { color: var(--color-accent); }
+    .footer__column address {
+      font-style: normal;
+      color: var(--color-footer-text);
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+    .footer__bottom {
+      border-top: 1px solid #222222;
+      margin-top: 40px;
+      padding-top: 24px;
+      text-align: center;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .copyright { color: #555555; font-size: 0.85rem; }
+
+    @media (max-width: 768px) {
+      .hero__title { font-size: 2rem; }
+      .header__inner { flex-direction: column; gap: 16px; }
+      .nav__list { gap: 16px; flex-wrap: wrap; justify-content: center; }
+      .price-table th, .price-table td { padding: 12px 10px; font-size: 0.85rem; }
+      .btn--ghost { margin-left: 0; margin-top: 12px; }
+      .footer__inner { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo">kir<span class="logo__accent">pc</span></a>
+      <nav class="nav">
+        <ul class="nav__list">
+          <li class="nav__item"><a href="index.html#services" class="nav__link">сервис</a></li>
+          <li class="nav__item"><a href="repair.html" class="nav__link">ремонт</a></li>
+          <li class="nav__item"><a href="configurator.html" class="nav__link">конфигуратор</a></li>
+          <li class="nav__item"><a href="#contact" class="nav__link">контакты</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero__title">Ремонт <span>ПК</span></h1>
+      <p class="hero__subtitle">
+        Диагностика, замена компонентов, восстановление после залития и другие услуги. Прозрачные цены, гарантия на работы.
+      </p>
+    </div>
+  </section>
+
+  <!-- PRICE LIST -->
+  <section class="pricelist">
+    <div class="container">
+      <h2 class="pricelist__title">Стоимость услуг</h2>
+
+      <table class="price-table">
+        <thead>
+          <tr>
+            <th>Услуга</th>
+            <th>Описание</th>
+            <th>Цена</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Диагностика</td>
+            <td class="note">Полная проверка всех компонентов, стресс-тесты, замер температур</td>
+            <td class="price">Бесплатно</td>
+          </tr>
+          <tr>
+            <td>Чистка от пыли</td>
+            <td class="note">Полная разборка, продувка, замена термопасты и термопрокладок</td>
+            <td class="price">1 500 ₽</td>
+          </tr>
+          <tr>
+            <td>Замена термоинтерфейса</td>
+            <td class="note">Снятие старой пасты, нанесение Arctic MX-4 / MX-6</td>
+            <td class="price">800 ₽</td>
+          </tr>
+          <tr>
+            <td>Сборка ПК с нуля</td>
+            <td class="note">Установка всех компонентов, кабель-менеджмент, биос-настройка</td>
+            <td class="price">3 500 ₽</td>
+          </tr>
+          <tr>
+            <td>Установка Windows</td>
+            <td class="note">Чистая установка, драйверы, базовый софт</td>
+            <td class="price">1 200 ₽</td>
+          </tr>
+          <tr>
+            <td>Перенос данных</td>
+            <td class="note">Клонирование диска, перенос файлов и настроек</td>
+            <td class="price">1 000 ₽</td>
+          </tr>
+          <tr>
+            <td>Замена блока питания</td>
+            <td class="note">Демонтаж старого, установка нового, укладка проводов</td>
+            <td class="price">1 000 ₽</td>
+          </tr>
+          <tr>
+            <td>Замена видеокарты / процессора</td>
+            <td class="note">Установка, тестирование, обновление драйверов</td>
+            <td class="price">800 ₽</td>
+          </tr>
+          <tr>
+            <td>Замена материнской платы</td>
+            <td class="note">Полная пересборка системы с новой платой</td>
+            <td class="price">2 500 ₽</td>
+          </tr>
+          <tr>
+            <td>Ремонт после залития</td>
+            <td class="note">Чистка платы в УЗ-ванне, замена окисленных компонентов</td>
+            <td class="price">от 2 000 ₽</td>
+          </tr>
+          <tr>
+            <td>Восстановление файлов</td>
+            <td class="note">С повреждённых HDD/SSD/flesh-накопителей</td>
+            <td class="price">от 1 500 ₽</td>
+          </tr>
+          <tr>
+            <td>Настройка BIOS / прошивка</td>
+            <td class="note">Обновление, разгон, настройка XMP/EXPO</td>
+            <td class="price">500 ₽</td>
+          </tr>
+          <tr>
+            <td>Модернизация (апгрейд)</td>
+            <td class="note">Подбор совместимых компонентов, установка, тесты</td>
+            <td class="price">от 1 500 ₽</td>
+          </tr>
+          <tr>
+            <td>Выезд на дом</td>
+            <td class="note">По городу, в пределах 20 км</td>
+            <td class="price">500 ₽</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container">
+      <p class="cta__text">Не уверены, что сломалось? Привозите — мы скажем точно.</p>
+      <a href="#" class="btn">Записаться на диагностику</a>
+      <a href="configurator.html" class="btn btn--ghost">Собрать новый ПК</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="contact">
+    <div class="footer__inner">
+      <div class="footer__column">
+        <h4>Услуги</h4>
+        <a href="repair.html">Ремонт</a>
+        <a href="#">Чистка / замена термоинтерфейса</a>
+        <a href="configurator.html">Конфигуратор ПК</a>
+        <a href="#">Кастомные ПК</a>
+      </div>
+      <div class="footer__column">
+        <h4>Контакты</h4>
+        <address>
+          ул. Техническая, д. 15<br>
+          +7 (999) 123-45-67<br>
+          каждый день: 10:00 – 20:00
+        </address>
+      </div>
+      <div class="footer__column">
+        <h4>Соцсети</h4>
+        <a href="#">Telegram</a>
+        <a href="#">YouTube</a>
+        <a href="#">Discord</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p class="copyright">&copy; kirpc</p>
+    </div>
+  </footer>
+
+</body>
+</html>

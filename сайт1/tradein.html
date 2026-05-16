@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Готовые ПК и Трейд-ин — kirpc</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #121212;
+      --color-surface: #1E1E1E;
+      --color-border: #333333;
+      --color-text: #E0E0E0;
+      --color-text-secondary: #A0A0A0;
+      --color-heading: #FFFFFF;
+      --color-accent: #F5B700;
+      --color-accent-hover: #FFD23D;
+      --color-footer-bg: #0A0A0A;
+      --color-footer-text: #888888;
+      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    .header {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--color-border);
+      background-color: var(--color-bg);
+    }
+    .header__inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--color-heading);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+    }
+    .logo__accent { color: var(--color-accent); }
+
+    .nav__list {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav__link {
+      color: var(--color-text-secondary);
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav__link:hover { color: var(--color-accent); }
+    .nav__link--active { color: var(--color-accent); }
+
+    /* Hero */
+    .hero {
+      padding: 80px 0 40px;
+      text-align: center;
+    }
+    .hero__title {
+      font-size: 2.8rem;
+      color: var(--color-heading);
+      margin-bottom: 16px;
+    }
+    .hero__title span { color: var(--color-accent); }
+    .hero__subtitle {
+      color: var(--color-text-secondary);
+      font-size: 1.1rem;
+      max-width: 650px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Section title */
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      color: var(--color-heading);
+      margin-bottom: 16px;
+    }
+    .section-subtitle {
+      text-align: center;
+      color: var(--color-text-secondary);
+      margin-bottom: 48px;
+      font-size: 0.95rem;
+    }
+
+    /* PC Cards Grid */
+    .pc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      padding: 0 0 80px;
+    }
+
+    .pc-card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      padding: 0;
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+    .pc-card:hover {
+      border-color: var(--color-accent);
+      transform: translateY(-4px);
+    }
+
+    .pc-card__badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background-color: var(--color-accent);
+      color: #121212;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 6px 12px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .pc-card__header {
+      background-color: #1A1A1A;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--color-border);
+      position: relative;
+    }
+    .pc-card__name {
+      font-size: 1.3rem;
+      color: var(--color-heading);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .pc-card__tag {
+      font-size: 0.8rem;
+      color: var(--color-accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .pc-card__specs {
+      padding: 20px 24px;
+      list-style: none;
+      flex-grow: 1;
+    }
+    .pc-card__specs li {
+      color: var(--color-text-secondary);
+      font-size: 0.9rem;
+      padding: 6px 0;
+      border-bottom: 1px solid #1A1A1A;
+      display: flex;
+      justify-content: space-between;
+    }
+    .pc-card__specs li span {
+      color: var(--color-text);
+      font-weight: 500;
+    }
+
+    .pc-card__footer {
+      padding: 20px 24px;
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .pc-card__price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-accent);
+    }
+    .pc-card__old-price {
+      font-size: 0.85rem;
+      color: #666;
+      text-decoration: line-through;
+      margin-left: 8px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: var(--color-accent);
+      color: #121212;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.2s;
+      text-align: center;
+    }
+    .btn:hover { background-color: var(--color-accent-hover); }
+
+    /* Trade-in Section */
+    .tradein {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 48px 40px;
+      margin-bottom: 80px;
+    }
+    .tradein__inner {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+    .tradein__info { flex: 1; min-width: 280px; }
+    .tradein__info h2 {
+      font-size: 2rem;
+      color: var(--color-heading);
+      margin-bottom: 16px;
+    }
+    .tradein__info h2 span { color: var(--color-accent); }
+    .tradein__info p {
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .tradein__steps {
+      list-style: none;
+      margin-bottom: 28px;
+    }
+    .tradein__steps li {
+      padding: 10px 0;
+      color: var(--color-text);
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .tradein__steps li::before {
+      content: attr(data-step);
+      background-color: var(--color-accent);
+      color: #121212;
+      font-weight: 700;
+      font-size: 0.8rem;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .tradein__calc {
+      flex: 1;
+      min-width: 280px;
+      background-color: #1A1A1A;
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      padding: 32px;
+      text-align: center;
+    }
+    .tradein__calc h3 {
+      color: var(--color-heading);
+      margin-bottom: 20px;
+    }
+    .tradein__calc select,
+    .tradein__calc input {
+      width: 100%;
+      padding: 12px 16px;
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      color: var(--color-text);
+      font-size: 0.95rem;
+      font-family: var(--font-main);
+      margin-bottom: 12px;
+    }
+    .tradein__calc select:focus,
+    .tradein__calc input:focus {
+      outline: none;
+      border-color: var(--color-accent);
+    }
+    .tradein__calc .btn { width: 100%; margin-top: 8px; }
+
+    /* Footer */
+    .footer {
+      background-color: var(--color-footer-bg);
+      border-top: 2px solid var(--color-accent);
+      padding: 40px 20px 20px;
+    }
+    .footer__inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer__column h4 {
+      color: #FFFFFF;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .footer__column a {
+      display: block;
+      color: #B0B0B0;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
+    .footer__column a:hover { color: var(--color-accent); }
+    .footer__column address {
+      font-style: normal;
+      color: var(--color-footer-text);
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+    .footer__bottom {
+      border-top: 1px solid #222222;
+      margin-top: 40px;
+      padding-top: 24px;
+      text-align: center;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .copyright { color: #555555; font-size: 0.85rem; }
+
+    @media (max-width: 768px) {
+      .hero__title { font-size: 2rem; }
+      .header__inner { flex-direction: column; gap: 16px; }
+      .nav__list { gap: 16px; flex-wrap: wrap; justify-content: center; }
+      .tradein { padding: 28px 20px; }
+      .tradein__inner { gap: 32px; }
+      .pc-grid { grid-template-columns: 1fr; }
+      .pc-card__footer { flex-direction: column; gap: 12px; text-align: center; }
+      .footer__inner { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo">kir<span class="logo__accent">pc</span></a>
+      <nav class="nav">
+        <ul class="nav__list">
+          <li class="nav__item"><a href="index.html#services" class="nav__link">сервис</a></li>
+          <li class="nav__item"><a href="repair.html" class="nav__link">ремонт</a></li>
+          <li class="nav__item"><a href="configurator.html" class="nav__link">конфигуратор</a></li>
+          <li class="nav__item"><a href="ready-pc.html" class="nav__link nav__link--active">готовые пк</a></li>
+          <li class="nav__item"><a href="#contact" class="nav__link">контакты</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero__title">Готовые <span>ПК</span></h1>
+      <p class="hero__subtitle">
+        Собранные, протестированные и готовые к работе системы. Вы покупаете — мы доставляем и настраиваем.
+      </p>
+    </div>
+  </section>
+
+  <!-- PC CARDS -->
+  <section class="container">
+    <h2 class="section-title">Игровые сборки</h2>
+    <p class="section-subtitle">Каждый ПК собирается вручную с кабель-менеджментом и тестированием 24 часа</p>
+
+    <div class="pc-grid">
+
+      <!-- Карточка 1 -->
+      <div class="pc-card">
+        <div class="pc-card__header">
+          <div class="pc-card__name">KirPC Start</div>
+          <div class="pc-card__tag">Начальный уровень</div>
+        </div>
+        <ul class="pc-card__specs">
+          <li>Процессор <span>Intel Core i3-12100F</span></li>
+          <li>Видеокарта <span>NVIDIA GTX 1660 Super</span></li>
+          <li>Память <span>16GB DDR4 3200MHz</span></li>
+          <li>Накопитель <span>SSD 512GB M.2</span></li>
+          <li>Блок питания <span>550W 80+ Bronze</span></li>
+          <li>Корпус <span>DeepCool Matrexx 30</span></li>
+        </ul>
+        <div class="pc-card__footer">
+          <div>
+            <span class="pc-card__price">48 000 ₽</span>
+          </div>
+          <a href="#" class="btn">Заказать</a>
+        </div>
+      </div>
+
+      <!-- Карточка 2 -->
+      <div class="pc-card">
+        <div class="pc-card__header">
+          <div class="pc-card__name">KirPC Mid</div>
+          <div class="pc-card__tag">Средний уровень</div>
+        </div>
+        <ul class="pc-card__specs">
+          <li>Процессор <span>Intel Core i5-12400F</span></li>
+          <li>Видеокарта <span>NVIDIA RTX 4060</span></li>
+          <li>Память <span>32GB DDR5 5600MHz</span></li>
+          <li>Накопитель <span>SSD 1TB M.2 NVMe</span></li>
+          <li>Блок питания <span>650W 80+ Gold</span></li>
+          <li>Корпус <span>NZXT H5 Flow</span></li>
+        </ul>
+        <div class="pc-card__footer">
+          <div>
+            <span class="pc-card__price">89 000 ₽</span>
+          </div>
+          <a href="#" class="btn">Заказать</a>
+        </div>
+      </div>
+
+      <!-- Карточка 3 -->
+      <div class="pc-card">
+        <div class="pc-card__header">
+          <div class="pc-card__name">KirPC Pro</div>
+          <div class="pc-card__tag">Высокий уровень</div>
+        </div>
+        <ul class="pc-card__specs">
+          <li>Процессор <span>Intel Core i7-14700KF</span></li>
+          <li>Видеокарта <span>NVIDIA RTX 4070 Ti Super</span></li>
+          <li>Память <span>32GB DDR5 6000MHz</span></li>
+          <li>Накопитель <span>SSD 2TB M.2 NVMe</span></li>
+          <li>Блок питания <span>850W 80+ Gold</span></li>
+          <li>Корпус <span>Lian Li O11 Dynamic</span></li>
+        </ul>
+        <div class="pc-card__footer">
+          <div>
+            <span class="pc-card__price">185 000 ₽</span>
+          </div>
+          <a href="#" class="btn">Заказать</a>
+        </div>
+      </div>
+
+      <!-- Карточка 4 -->
+      <div class="pc-card">
+        <div class="pc-card__header">
+          <div class="pc-card__name">KirPC Ultra</div>
+          <div class="pc-card__tag">Максимальный уровень</div>
+        </div>
+        <ul class="pc-card__specs">
+          <li>Процессор <span>AMD Ryzen 7 7800X3D</span></li>
+          <li>Видеокарта <span>NVIDIA RTX 4090</span></li>
+          <li>Память <span>64GB DDR5 6000MHz</span></li>
+          <li>Накопитель <span>SSD 2TB + SSD 4TB NVMe</span></li>
+          <li>Блок питания <span>1200W 80+ Platinum</span></li>
+          <li>Корпус <span>Fractal Design North</span></li>
+        </ul>
+        <div class="pc-card__footer">
+          <div>
+            <span class="pc-card__price">350 000 ₽</span>
+          </div>
+          <a href="#" class="btn">Заказать</a>
+        </div>
+      </div>
+
+      <!-- Карточка 5 -->
+      <div class="pc-card">
+        <div class="pc-card__header">
+          <div class="pc-card__name">KirPC AMD Value</div>
+          <div class="pc-card__tag">Цена-качество</div>
+        </div>
+        <ul class="pc-card__specs">
+          <li>Процессор <span>AMD Ryzen 5 7500F</span></li>
+          <li>Видеокарта <span>AMD RX 7700 XT</span></li>
+          <li>Память <span>32GB DDR5 5600MHz</span></li>
+          <li>Накопитель <span>SSD 1TB M.2 NVMe</span></li>
+          <li>Блок питания <span>750W 80+ Gold</span></li>
+          <li>Корпус <span>Corsair 4000D Airflow</span></li>
+        </ul>
+        <div class="pc-card__footer">
+          <div>
+            <span class="pc-card__price">105 000 ₽</span>
+          </div>
+          <a href="#" class="btn">Заказать</a>
+        </div>
+      </div>
+
+      <!-- Карточка 6 -->
+      <div class="pc-card">
+        <div class="pc-card__header">
+          <div class="pc-card__name">KirPC Mini</div>
+          <div class="pc-card__tag">Компактный</div>
+        </div>
+        <ul class="pc-card__specs">
+          <li>Процессор <span>Intel Core i5-13400F</span></li>
+          <li>Видеокарта <span>NVIDIA RTX 4060 Ti</span></li>
+          <li>Память <span>16GB DDR5 5200MHz</span></li>
+          <li>Накопитель <span>SSD 1TB M.2 NVMe</span></li>
+          <li>Блок питания <span>SFX 650W 80+ Gold</span></li>
+          <li>Корпус <span>Fractal Design Terra (SFF)</span></li>
+        </ul>
+        <div class="pc-card__footer">
+          <div>
+            <span class="pc-card__price">115 000 ₽</span>
+          </div>
+          <a href="#" class="btn">Заказать</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TRADE-IN -->
+  <section class="container">
+    <div class="tradein">
+      <div class="tradein__inner">
+        <div class="tradein__info">
+          <h2>Трейд-<span>ин</span></h2>
+          <p>
+            Сдайте старый ПК или ноутбук в зачёт нового. Оценим за 15 минут, выплатим наличными или зачтём в стоимость новой сборки.
+          </p>
+          <ul class="tradein__steps">
+            <li data-step="1">Привозите устройство или вызываете курьера</li>
+            <li data-step="2">Проводим диагностику и оценку (15–30 минут)</li>
+            <li data-step="3">Предлагаем цену — вы соглашаетесь или отказываетесь</li>
+            <li data-step="4">Выплата наличными или скидка на новый ПК сразу</li>
+          </ul>
+        </div>
+        <div class="tradein__calc">
+          <h3>Оценить устройство</h3>
+          <select>
+            <option>Тип устройства</option>
+            <option>Игровой ПК</option>
+            <option>Офисный ПК</option>
+            <option>Ноутбук</option>
+            <option>Комплектующие отдельно</option>
+          </select>
+          <select>
+            <option>Видеокарта (если есть)</option>
+            <option>Нет / Встроенная</option>
+            <option>GTX 1660 / RTX 2060</option>
+            <option>RTX 3060 / RTX 4060</option>
+            <option>RTX 3070 / RTX 4070</option>
+            <option>RTX 3080 / RTX 4080 / RTX 4090</option>
+          </select>
+          <input type="text" placeholder="Примерный год покупки (например: 2022)">
+          <a href="#" class="btn">Узнать примерную цену</a>
+          <p style="color: var(--color-text-secondary); font-size: 0.75rem; margin-top: 12px;">
+            Точная цена — после диагностики
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="contact">
+    <div class="footer__inner">
+      <div class="footer__column">
+        <h4>Услуги</h4>
+        <a href="repair.html">Ремонт</a>
+        <a href="#">Чистка / замена термоинтерфейса</a>
+        <a href="configurator.html">Конфигуратор ПК</a>
+        <a href="ready-pc.html">Готовые ПК</a>
+      </div>
+      <div class="footer__column">
+        <h4>Контакты</h4>
+        <address>
+        <br>
+          <br>
+          
+        </address>
+      </div>
+      <div class="footer__column">
+        <h4>Соцсети</h4>
+        <a href="#">Telegram</a>
+        <a href="#">YouTube</a>
+        <a href="#">Discord</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p class="copyright">&copy; kirpc</p>
+    </div>
+  </footer>
+
+</body>
+</html>
